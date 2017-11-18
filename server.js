@@ -1,19 +1,38 @@
-const express = require("express");
-const path = require("path");
-const PORT = process.env.PORT || 3001;
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const routes = require('./routes');
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+const db = require('./models');
+const {Article} = db;
+console.log(db.Article);
 
-// Send every request to the React app
-// Define any API routes before this runs
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+
+//need to figure out what this is???
+app.use(express.static('client/build'));
+app.use(routes);
+
+mongoose.Promise = global.Promise;
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/articleHW",
+  {
+    useMongoClient: true
+  }
+);
+
 
 app.listen(PORT, function() {
-  console.log(`🌎 ==> Server now on port ${PORT}!`);
+	console.log("Now Listening on PORT" + PORT)
 });
+
+
+// article.post('/api/saved', (req, res) => {
+// 	console.log(req.body)
+// Article.create(req.body).then(() => {
+// 	res.json("heyhey")
+// })
+// })
