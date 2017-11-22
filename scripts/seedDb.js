@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = require('.../models');
+const db = require('../models');
 mongoose.Promise = global.Promise;
 
 mongoose.connect(
@@ -29,7 +29,7 @@ const articleSeed = [
 
 db.Article
 	.remove({})
-	.then(() => db.Article.collectioin.insertMany(articleSeed))
+	.then(() => db.Article.collection.insertMany(articleSeed))
 	.then(data => {
 		console.log(data.insertedIds.length + " articles inserted!");
 		process.exit(0);

@@ -18,10 +18,14 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
+    "create-react-class": "^15.6.2",
     "express": "^4.15.4",
     "mongoose": "^4.13.4",
     "path": "^0.12.7",
-    "request": "^2.83.0"
+    "react-dom": "^16.1.1",
+    "request": "^2.83.0",
+    "seed": "^0.4.4"
   }
 }

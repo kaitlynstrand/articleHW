@@ -1,21 +1,87 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Require React
+var React = require('react');
 
-class App extends Component {
-  render() {
+// bringing in subcomponents
+var Articles = require('./components/Articles');
+var Saved = require('./components/Saved');
+var Search = require('./components/Search');
+
+// Requiring our helper for API calls
+var helper = require('./utils/helper');
+
+// creating Main Component
+var App = React.createClass({
+  // set initial state
+  getInitialState: function(){
+    return{
+      search: ["","",""],
+      articles: [],
+      saved: []
+    };
+  },
+
+  // loads when page is ready
+  componentDidMount: function(){
+    // using helper to get saved articles
+    helper.getSaved().then(function(response){
+      console.log(response);
+      if (response !== this.state.saved) {
+        console.log("Saved", response.data);
+        this.setState({ saved: response.data });
+      }
+    }.bind(this));
+  },
+  // updating as changes occur
+  componentDidUpdate: function(){
+    // run query
+    helper.runQuery(this.state.search).then(function(data){
+      if(data !== this.state.articles) {
+        console.log("Articles", data);
+        this.setState({ articles: data });
+        // then post results to history
+        helper.postSaved(this.state.search).then(function(){
+          console.log("Updated");
+          // then get updated history
+          helper.getSaved().then(function(response){
+            console.log("Saved", response.data);
+
+            this.setState({ saved: response.data });
+
+          }.bind(this));
+        }.bind(this));
+      }
+    }.bind(this));
+  },
+  // lets children update parent
+  setSearch: function(topic, startYear, endYear){
+    this.setState({ search: [topic, startYear, endYear] });
+  },
+  // render the function
+  render: function(){
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className="container">
+        <div className="row">
+          <div className="card-panel z-depth-4 panelTitle center-align">
+            <h2>New York Times</h2>
+            <h4>Search for an article!</h4>
+          </div>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+        <div className="row col s12">
+          <Search search={this.setSearch} />
+        </div>
+
+        <div className="row col s12">
+          <Articles articles={this.state.articles} />
+        </div>
+
+        <div className="row col s12">
+          <Saved saved={this.state.saved} />
+        </div>
+
       </div>
     );
   }
-}
+});
 
-export default App;
+module.exports = App;
