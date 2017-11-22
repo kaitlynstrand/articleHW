@@ -2,7 +2,7 @@ var React = require('react');
 
 var helper = require('../../utils/helper');
 
-class Articles extends Component {
+class Articles extends React.Component {
 	state = {
 		articles: [],
 		title: "",

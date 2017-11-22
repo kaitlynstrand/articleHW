@@ -1,32 +1,33 @@
 var React = require('react');
 
-var Search = React.createClass({
-	reloadPage: function() {
+class Search extends React.Component{
+	reloadPage = () => {
 		return{
 			topic: "",
 			startYear: "",
 			endYear: ""
 		};
-	},
+	}
 
-	handleTopicChange: function(event) {
+	handleTopicChange = event => {
 		this.setState({ topic: event.target.value });
-	},
+	}
 
-	handleStartChange: function(event) {
+	handleStartChange = event => {
 		this.setState({ startYear: event.target.value });
-	},
+	}
 
-	handleEndChange: function(event) {
+	handleEndChange = event => {
 		this.setState({ endYear: event.target.value });
-	},
+	}
 
-	handleSubmit: function(event) {
+	handleSubmit = event => {
 		event.preventDefault();
 
 		this.props.setSearch(this.state.topic, this.state.startYear, this.state.endYear);		
-	},
-	render: function() {
+	}
+	
+	render = () => {
 		return(
 			<div className='card z-depth-4 center-align'>
 				<h3 className='panelTitle'>Search</h3>
@@ -46,6 +47,6 @@ var Search = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 module.exports = Search;

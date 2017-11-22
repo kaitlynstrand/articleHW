@@ -1,27 +1,26 @@
 // Require React
-var React = require('react');
+import React, { Component } from 'react';
 
 // bringing in subcomponents
-var Articles = require('./components/Articles');
-var Saved = require('./components/Saved');
-var Search = require('./components/Search');
+import Articles from './components/Articles';
+import Saved from './components/Saved';
+import Search from './components/Search';
 
 // Requiring our helper for API calls
-var helper = require('./utils/helper');
+import helper from './utils/helper';
 
 // creating Main Component
-var App = React.createClass({
+class App extends Component {
   // set initial state
-  getInitialState: function(){
-    return{
+  state = {
       search: ["","",""],
       articles: [],
       saved: []
     };
-  },
+  
 
   // loads when page is ready
-  componentDidMount: function(){
+  componentDidMount = () => {
     // using helper to get saved articles
     helper.getSaved().then(function(response){
       console.log(response);
@@ -30,9 +29,9 @@ var App = React.createClass({
         this.setState({ saved: response.data });
       }
     }.bind(this));
-  },
+  }
   // updating as changes occur
-  componentDidUpdate: function(){
+  componentDidUpdate = () => {
     // run query
     helper.runQuery(this.state.search).then(function(data){
       if(data !== this.state.articles) {
@@ -51,13 +50,13 @@ var App = React.createClass({
         }.bind(this));
       }
     }.bind(this));
-  },
+  }
   // lets children update parent
-  setSearch: function(topic, startYear, endYear){
+  setSearch = (topic, startYear, endYear) => {
     this.setState({ search: [topic, startYear, endYear] });
-  },
+  }
   // render the function
-  render: function(){
+  render = () => {
     return (
       <div className="container">
         <div className="row">
@@ -70,9 +69,10 @@ var App = React.createClass({
         <div className="row col s12">
           <Search search={this.setSearch} />
         </div>
-
+        
         <div className="row col s12">
-          <Articles articles={this.state.articles} />
+          <Articles
+          articles={this.state.articles} />
         </div>
 
         <div className="row col s12">
@@ -82,6 +82,6 @@ var App = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = App;
+export default App;

@@ -2,17 +2,17 @@ var React = require('react');
 
 var helper = require('../../utils/helper');
 
-var Saved = React.createClass({
+class Saved extends React.Component {
 
-	handleDelete: function(article) {
+	handleDelete = article => {
 		var articleId = article.target.value;
 
 		helper.deleteSaved(articleId).then(function(response) {
 			console.log('Deleted Article');
 		}.bind(this));
-	},
+	}
 
-	render: function() {
+	render = () => {
 		return (
 			<div className='panel card z-depth-4 center-align'>
 				<h3 className='panelTitle'>Saved</h3>	
@@ -33,6 +33,6 @@ var Saved = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 module.exports = Saved;
