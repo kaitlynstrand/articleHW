@@ -1,8 +1,9 @@
-var React = require('react');
+import React, { Component } from 'react';
+import helper from './../../utils/helper';
 
-class Search extends React.Component{
+class Search extends Component {
 	reloadPage = () => {
-		return{
+		return {
 			topic: "",
 			startYear: "",
 			endYear: ""
@@ -24,8 +25,15 @@ class Search extends React.Component{
 	handleSubmit = event => {
 		event.preventDefault();
 
-		this.props.setSearch(this.state.topic, this.state.startYear, this.state.endYear);		
-	}
+		helper.runQuery({
+			topic: this.state.topic,
+			startYear: this.state.startYear,
+			endYear: this.state.endYear
+		})	
+        .then(res => this.render())
+        .catch(err => console.log(err));
+
+    }
 	
 	render = () => {
 		return(
@@ -49,4 +57,4 @@ class Search extends React.Component{
 	}
 };
 
-module.exports = Search;
+export default Search;

@@ -1,24 +1,29 @@
-var React = require('react');
+/*import React, { Component } from 'react';
+import helper from './../../utils/helper';
 
-var helper = require('../../utils/helper');
+class Saved extends Component {*/
 
-class Saved extends React.Component {
+	/*state = {
+		saved: [],
+		title: "",
+		web_url: ""
+	};
 
 	handleDelete = article => {
-		var articleId = article.target.value;
+		var articleId = article.target._id;
 
 		helper.deleteSaved(articleId).then(function(response) {
 			console.log('Deleted Article');
-		}.bind(this));
-	}
+		})
+	};
 
 	render = () => {
-		return (
+		return(
 			<div className='panel card z-depth-4 center-align'>
 				<h3 className='panelTitle'>Saved</h3>	
 
-			<div>
-			{this.props.saved.map(function(article, i) {
+			<div className='savedBox'>
+			{this.state.saved.map(article => {
 				return (
 					<li key={article._id}>
 						<strong><a href={article.web_url} className='left-align' target='_blank'>{article.title}</a></strong>
@@ -31,8 +36,10 @@ class Saved extends React.Component {
 			})}
 			</div>
 			</div>
-		);
-	}
-};
+			)
 
-module.exports = Saved;
+		}
+	}*/
+	
+
+/*export default Saved;*/

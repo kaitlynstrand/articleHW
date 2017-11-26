@@ -1,8 +1,7 @@
-var React = require('react');
+import React, { Component } from 'react';
+import helper from './../../utils/helper';
 
-var helper = require('../../utils/helper');
-
-class Articles extends React.Component {
+class Articles extends Component {
 	state = {
 		articles: [],
 		title: "",
@@ -12,7 +11,7 @@ class Articles extends React.Component {
 	handleSave = article =>  {
 		helper.postSaved(article).then(function(response) {
 			console.log('Saved Article');
-		}.bind(this));
+		})
 	};
 
 	render = () => {
@@ -26,7 +25,7 @@ class Articles extends React.Component {
 					return(
 						<li key={article._id}>
 							<strong><a href={article.web_url} className='left-align' target='_blank'>{article.title}</a></strong>
-								<i>{article.date.substring(0,10)}</i>
+								<i>{article.pub_date.substring(0,10)}</i>
 							<span>
 								<button className='waves-effect waves-light btn right-align' onClick={this.handleSave(article)} value={article._id}>Save</button>
 							</span>
@@ -41,4 +40,4 @@ class Articles extends React.Component {
 	}
 };
 
-module.exports = Articles
+export default Articles

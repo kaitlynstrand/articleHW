@@ -1,8 +1,9 @@
 {
-  "name": "mern",
+  "name": "reactnewsies",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "NYT React",
   "main": "server.js",
+  "proxy": "http://localhost:3000/",
   "scripts": {
     "server": "node server.js",
     "client": "cd client && npm run start",
@@ -11,7 +12,7 @@
     "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Kaitlyn Strand",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
@@ -20,10 +21,12 @@
   "dependencies": {
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "create-react-class": "^15.6.2",
     "express": "^4.15.4",
     "mongoose": "^4.13.4",
     "path": "^0.12.7",
+    "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "request": "^2.83.0",
     "seed": "^0.4.4"

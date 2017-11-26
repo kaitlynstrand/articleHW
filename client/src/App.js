@@ -20,16 +20,7 @@ class App extends Component {
   
 
   // loads when page is ready
-  componentDidMount = () => {
-    // using helper to get saved articles
-    helper.getSaved().then(function(response){
-      console.log(response);
-      if (response !== this.state.saved) {
-        console.log("Saved", response.data);
-        this.setState({ saved: response.data });
-      }
-    }.bind(this));
-  }
+
   // updating as changes occur
   componentDidUpdate = () => {
     // run query
@@ -46,10 +37,10 @@ class App extends Component {
 
             this.setState({ saved: response.data });
 
-          }.bind(this));
-        }.bind(this));
+          })
+        })
       }
-    }.bind(this));
+    })
   }
   // lets children update parent
   setSearch = (topic, startYear, endYear) => {
@@ -75,12 +66,9 @@ class App extends Component {
           articles={this.state.articles} />
         </div>
 
-        <div className="row col s12">
-          <Saved saved={this.state.saved} />
-        </div>
 
       </div>
-    );
+    )
   }
 }
 

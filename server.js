@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes');
+const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 //need to figure out what this is???
 app.use(express.static('client/build'));
 app.use(routes);
+app.use(cors);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(

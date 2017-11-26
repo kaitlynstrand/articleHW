@@ -1,38 +1,33 @@
-var express = require('express');
-var router = express.Router();
-var path = require('path');
-
 const db = require('../models');
 
-router.get('/', function(req, res) {
-	res.sendFile(__dirname + "../public.index.html");
-});
+module.exports = {
+	findAll: function(req, res) {
+		db.Article
+			.find(req.query)
+			.sort({ date: -1})
+			.then(dbModel => res.json(dbModel))
+			.catch(err => res.status(422).json(err));
+	},
 
-router.get('/api/saved', function(req, res) {
-	Article.findAll({}).sort([
-		['date', 'descending']
-	]).limit(5).exec(function(err, doc) {
-		if (err) {console.log(err);}
-		else {res.send(doc);}
-	});
-});
+	findById: function(req, res) {
+		db.Article
+			.findById(req.params.id)
+			.then(dbModel => res.json(dbModel))
+			.catch(err => res.status(422).json(err));
+	},
 
-router.post('/api/saved', function(req, res) {
-	Article.create({
-		title: req.body.title,
-		date: Date.now(),
-		url: req.body.url
-	}, function(err) {
-		if(err){console.log(err);}
-		else{res.send("Article is Saved");}
-	});
-});
+	create: function(req, res) {
+		db.Article
+			.create(req.body)
+			.then(dbModel => res.json(dbModel))
+			.catch(err => res.status(422).json(err));
+	},
 
-router.delete('/api/saved/:id', function(req, res) {
-	Article.findByIdAndRemove({ _id: req.params.id }, function(err, doc) {
-		if(err){console.log(err);}
-		else(res.redirect();}
-	});
-});
-
-module.exports = router;
+	remove: function(req, res) {
+		db.Article
+		.findById({ _id: req.params.id })
+		.then(dbModel => dbModel.remove())
+		.then(dbModel => res.json(dbModel))
+		.catch(err => res.status(422).json(err));
+	}
+};
